@@ -42,4 +42,18 @@ const acheivements = [
 function CafePassport() {
     // Get the user state
     const { user, loading, refreshUserStats } = useContext(UserState);
+
+    if (loading) return <div>Loading Passport...</div>;
+    if (!user) return <div>Please log in to view your passport.</div>;
+
+    return (
+        <div className='PassportDashboard'>
+            <h2>{user.name}'s Journey</h2>
+            <p>Total Beans: {user.stats.checkIns} / 10</p>
+
+            {/* Acheivements and Bean Passport would go here */}
+        </div>
+    );
 }
+
+export default CafePassport;
