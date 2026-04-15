@@ -11,15 +11,24 @@ export function UserProvider({ children }) {
         
         const fetchSession = async () => {
             try {
-                const databaseData = {
-                    userID: 2474,
-                    name: "Brian Byrd",
-                    stats: {
-                        checkIns: 4,
-                        reviews: 2, 
-                        patioVisits: 1
-                    }
-                };
+                // Check if user has already been cached
+                const storedUserId = localStorage.getItem('cafe_curator_userid') || '1';    // Default to 1 for debugging
+        
+                if (!storedUserId) {
+                    throw new Error('No user stored locally');
+                }
+
+                // Pass the ID to the API via headers
+                const sessionData = await fetch('http://localhost:5000/api/session', {
+                headers: {
+                    // Store the UserID
+                    'x-user-id': storedUserId
+                }
+                });
+        
+                // Set the users session
+                if (!sessionData.ok) throw new Error('Session fetch failed');
+                const databaseData = await sessionData.json();
                 setUser(databaseData);
             } catch (error) {
                 console.error("No active session found")

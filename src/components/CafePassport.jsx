@@ -27,16 +27,16 @@ const acheivements = [
     {
         id: 2, 
         title: "The Critic", 
-        desc: "Leave 3 detailed reviews.",
+        description: "Leave 3 detailed reviews.",
         icon: "✍️",
-        isUnlocked: (stats) => stats.reviews >= 3
+        unlockRequirement: (stats) => stats.reviews >= 3
     },
     {
         id: 3, 
         title: "Patio Royalty", 
-        desc: "Check-in to 2 cafes with patios.",
+        description: "Check-in to 2 cafes with patios.",
         icon: "☀️",
-        isUnlocked: (stats) => stats.patioVisits >= 2
+        unlockRequirement: (stats) => stats.patioVisits >= 2
     }
 ];
 
@@ -44,18 +44,18 @@ function CafePassport() {
     // Get the user state
     const { user, loading, refreshUserStats } = useContext(UserState);
 
-    // Retreive check-ins
-    const checkIns = user.stats.checkIns;
-    const passportGrid = generateMonthlyPassport(checkIns);
-
     if (loading) return <div>Loading Passport...</div>;
     if (!user) return <div>Please log in to view your passport.</div>;
+
+    // Retreive check-ins
+    const checkIns = user.checkInHistory || [];
+    const passportGrid = generateMonthlyPassport(checkIns);
 
     return (
         <div className='JourneyDashboard'>
             <h2>{user.name}'s Journey</h2>
 
-            // Render the passport card for the user
+            {/* Render the passport card for the user */}
             <div className = "PassportCard">
                 <h3 className = "PassportTitle">Explorer Passport</h3>
                 <p className="PassportSubtext">There's a new cafe always waiting to be explored.</p>
