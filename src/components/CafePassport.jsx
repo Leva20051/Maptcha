@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './CafePassport.css';
 import { UserState } from './UserState';
+import { generateMonthlyPassport } from '@/utils/passportLogic';
 
 // Placeholder data
 const placeholderUser = {
@@ -43,15 +44,37 @@ function CafePassport() {
     // Get the user state
     const { user, loading, refreshUserStats } = useContext(UserState);
 
+    // Retreive check-ins
+    const checkIns = user.stats.checkIns;
+    const passportGrid = generateMonthlyPassport(checkIns);
+
     if (loading) return <div>Loading Passport...</div>;
     if (!user) return <div>Please log in to view your passport.</div>;
 
     return (
-        <div className='PassportDashboard'>
+        <div className='JourneyDashboard'>
             <h2>{user.name}'s Journey</h2>
-            <p>Total Beans: {user.stats.checkIns} / 10</p>
 
-            {/* Acheivements and Bean Passport would go here */}
+            // Render the passport card for the user
+            <div className = "PassportCard">
+                <h3 className = "PassportTitle">Explorer Passport</h3>
+                <p className="PassportSubtext">There's a new cafe always waiting to be explored.</p>
+                <div className="BeanGrid">
+                    {passportGrid.map((slot, index) => (
+                        <div key={index} className={`BeanSlot ${slot ? 'filled' : 'empty'}`}>
+                            {slot ? (
+                                <div className="SlotContent">
+                                    <span className="BeanIcon">{slot.icon}</span>
+                                    <span className="VenueName">{slot.venueName}</span>
+                                    <span className="VisitDate">{slot.date}</span>
+                                </div>
+                            ) : (
+                                <span className="EmptyNumber">{index + 1}</span>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

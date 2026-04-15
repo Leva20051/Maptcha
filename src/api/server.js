@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(cors()); // Connect SQL to React
 app.use(express.json()); // Allow API to read JSON data
 
-// SERVER SQL QUERIES
+// SERVER SQL QUERIES (READ)
 // To use, make a new function with a path leading to 
 // where you'd like the information stored in the API (e.g '/api/venues').
 // Then, create the SQL query needed for the database, and send it to React
@@ -41,6 +41,37 @@ app.get('/api/venues', async (request, result) => {
     } catch (errors) {
         console.error("Error fetching venues: ", error);
         result.status(500).json({ error: "Failed to fetch venues from database!" });
+    }
+});
+
+// SERVER SQL QUERIES (WRITE)
+app.post('/api/checkin', async (request, result) => {
+    // Break down JSON
+    const { userID, venueID, notes } = request.body;
+
+    // Validate data
+    if (!userID || !venueID) {
+        return result.status(400).json({ error: "Missing FK UserID or VenueID"});
+    }
+
+    try {
+        // SQL Query
+        const sqlQuery = `
+        INSERT INTO Check_In (UserID, VenueID, CheckInTime, Notes)
+        VALUES (?, ?, CURRENT_TIMESTAMP, ?)
+        `;
+
+        // Execute the query (Array fills the question marks)
+        const [result] = await database.execute(sqlQuery, [userID, venueID, notes || null]);
+
+        // Respond with success status to React
+        result.status(201).json({
+            message: "Check-in successful!",
+            insertedRows: result.affectedRows
+        });
+    } catch (error) {
+        console.error("Check-in error: ", error);
+        result.status(500).json({ error: "Failed to log check-in to the database."});
     }
 });
 
