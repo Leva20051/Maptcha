@@ -77,7 +77,7 @@ export async function requireRole(role: AppRole) {
   const session = await requireSession();
 
   if (session.role !== role) {
-    redirect("/dashboard");
+    redirect(await getRoleHome(session.role));
   }
 
   return session;

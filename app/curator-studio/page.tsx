@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { RoleAccessShell } from "@/components/role-access-shell";
 import { SubmitButton } from "@/components/submit-button";
 import {
   saveRecommendationAction,
@@ -6,11 +8,35 @@ import {
   toggleCuratorCategoryAction,
   updateCuratorProfileAction,
 } from "@/lib/actions";
-import { requireRole } from "@/lib/auth";
+import { getRoleHome, getSession } from "@/lib/auth";
 import { getCuratorDashboardData, getVenueBrowseData } from "@/lib/data";
 
 export default async function CuratorStudioPage() {
-  const session = await requireRole("curator");
+  const session = await getSession();
+
+  if (!session) {
+    return (
+      <RoleAccessShell
+        eyebrow="Curator Studio"
+        title="Stay on the studio page and sign back in."
+        description="Logging out from the studio now keeps the same route and full-width shell, so the interface does not collapse into a different page style."
+        role="curator"
+        panelTitle="Curator studio access"
+        panelDescription="Sign in to manage recommendations, expertise categories, followers, and venue submissions."
+        previewTitle="What returns after sign-in"
+        previewItems={[
+          "Your curator profile, bio, and public identity controls.",
+          "Specialty categories, recent recommendations, and expert reviews.",
+          "Venue submission tools, follower activity, and status tracking.",
+        ]}
+      />
+    );
+  }
+
+  if (session.role !== "curator") {
+    redirect(await getRoleHome(session.role));
+  }
+
   const data = await getCuratorDashboardData(session.userId);
   const venues = await getVenueBrowseData();
 

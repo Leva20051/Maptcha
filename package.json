@@ -2,11 +2,18 @@
   "name": "cafe-curator",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "db:bootstrap": "node scripts/bootstrap-db.mjs"
+    "db:bootstrap": "node scripts/bootstrap-db.mjs",
+    "db:setup-shared": "node scripts/setup-shared-db.mjs",
+    "db:create-admin": "node scripts/create-admin-user.mjs",
+    "db:reset-username-passwords": "node scripts/reset-username-passwords.mjs",
+    "smoke:local": "node scripts/full-local-smoke-test.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

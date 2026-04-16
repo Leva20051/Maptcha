@@ -8,6 +8,14 @@ import { SiteHeader } from "@/components/site-header";
 export const metadata: Metadata = {
   title: "Cafe Curator",
   description: "Discover cafes by atmosphere, WiFi, study fit, and trusted curator picks.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.png", rel: "shortcut icon", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png" }],
+  },
 };
 
 export default async function RootLayout({

@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { RoleAccessShell } from "@/components/role-access-shell";
 import { SubmitButton } from "@/components/submit-button";
 import {
   adminAssignCuratorCategoryAction,
@@ -14,12 +16,36 @@ import {
   saveVenueAction,
   verifyCuratorAction,
 } from "@/lib/actions";
-import { requireRole } from "@/lib/auth";
+import { getRoleHome, getSession } from "@/lib/auth";
 import { ATTRIBUTE_NAMES, BADGE_TYPES, TAG_TYPES } from "@/lib/constants";
 import { getAdminDashboardData } from "@/lib/data";
 
 export default async function AdminPage() {
-  await requireRole("admin");
+  const session = await getSession();
+
+  if (!session) {
+    return (
+      <RoleAccessShell
+        eyebrow="Admin Console"
+        title="Stay on the operations console page and sign back in."
+        description="Logging out from admin now keeps this route and this full app shell, instead of dropping you into a smaller public page."
+        role="admin"
+        panelTitle="Admin console access"
+        panelDescription="Sign in to continue moderation, approvals, venue management, and system administration."
+        previewTitle="What is inside the console"
+        previewItems={[
+          "Venue creation, edits, tags, badges, and expertise category management.",
+          "Curator verification, submission approvals, and review moderation.",
+          "Cross-system controls for users, mappings, and operational data.",
+        ]}
+      />
+    );
+  }
+
+  if (session.role !== "admin") {
+    redirect(await getRoleHome(session.role));
+  }
+
   const data = await getAdminDashboardData();
 
   return (

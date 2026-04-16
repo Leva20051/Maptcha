@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Compass, LayoutDashboard, LogOut, ShieldCheck, Sparkles, UserCircle2 } from "lucide-react";
+import { Compass, LayoutDashboard, ShieldCheck, Sparkles, UserCircle2 } from "lucide-react";
+import { LogoutLink } from "@/components/logout-link";
 import type { SessionUser } from "@/lib/types";
 
 type SiteHeaderProps = {
@@ -49,16 +50,13 @@ export function SiteHeader({ session }: SiteHeaderProps) {
                   Admin
                 </Link>
               ) : null}
-              <Link href="/logout">
-                <LogOut size={16} />
-                Logout
-              </Link>
+              <LogoutLink />
             </>
           ) : (
             <>
-              <Link href="/login/user">Regular Login</Link>
-              <Link href="/login/curator">Curator Login</Link>
-              <Link href="/login/admin">Admin Login</Link>
+              <Link href="/dashboard">Regular Login</Link>
+              <Link href="/curator-studio">Curator Login</Link>
+              <Link href="/admin">Admin Login</Link>
             </>
           )}
         </nav>

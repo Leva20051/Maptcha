@@ -1,5 +1,7 @@
+import { AccountAccessShell } from "@/components/account-access-shell";
+import { redirect } from "next/navigation";
 import { SubmitButton } from "@/components/submit-button";
-import { requireSession } from "@/lib/auth";
+import { getRoleHome, getSession } from "@/lib/auth";
 import {
   getCuratorDashboardData,
   getRegularDashboardData,
@@ -14,11 +16,20 @@ import {
 import { ATTRIBUTE_NAMES } from "@/lib/constants";
 
 export default async function AccountPage() {
-  const session = await requireSession();
+  const session = await getSession();
+
+  if (!session) {
+    return <AccountAccessShell />;
+  }
+
   const baseUser = await getSessionUserById(session.userId);
 
   if (!baseUser) {
     throw new Error("User not found.");
+  }
+
+  if (!["regular", "curator", "admin"].includes(session.role)) {
+    redirect(await getRoleHome(session.role));
   }
 
   const regularData = session.role === "regular" ? await getRegularDashboardData(session.userId) : null;

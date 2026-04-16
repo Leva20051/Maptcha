@@ -14,7 +14,17 @@ const pool =
     user: env.dbUser,
     password: env.dbPassword,
     database: env.dbName,
-    connectionLimit: 10,
+    ...(env.dbSsl
+      ? {
+          ssl: {
+            minVersion: env.dbSslMinVersion,
+            rejectUnauthorized: env.dbSslRejectUnauthorized,
+          },
+        }
+      : {}),
+    connectionLimit: env.dbConnectionLimit,
+    maxIdle: env.dbMaxIdle,
+    enableKeepAlive: env.dbEnableKeepAlive,
     namedPlaceholders: false,
   });
 

@@ -15,7 +15,15 @@ DB_PORT="${DB_PORT:-3306}"
 DB_USER="${DB_USER:-root}"
 DB_PASSWORD="${DB_PASSWORD:-}"
 DB_NAME="${DB_NAME:-cafe_curator}"
+DB_SSL="${DB_SSL:-false}"
 REFRESH_SECONDS="${REFRESH_SECONDS:-2}"
+
+MYSQL_SSL_ARGS=()
+case "${DB_SSL:l}" in
+  1|true|yes|on)
+    MYSQL_SSL_ARGS=(--ssl-mode=REQUIRED)
+    ;;
+esac
 
 usage() {
   cat <<'EOF'
@@ -94,6 +102,7 @@ while true; do
       -h "$DB_HOST" \
       -P "$DB_PORT" \
       -u "$DB_USER" \
+      "${MYSQL_SSL_ARGS[@]}" \
       -D "$DB_NAME" \
       -N \
       -B \
@@ -108,6 +117,7 @@ while true; do
         -h "$DB_HOST" \
         -P "$DB_PORT" \
         -u "$DB_USER" \
+        "${MYSQL_SSL_ARGS[@]}" \
         -D "$DB_NAME" \
         -t \
         -e "SELECT * FROM \`$TABLE_NAME\`;"
@@ -122,6 +132,7 @@ while true; do
       -h "$DB_HOST" \
       -P "$DB_PORT" \
       -u "$DB_USER" \
+      "${MYSQL_SSL_ARGS[@]}" \
       -D "$DB_NAME" \
       -t \
       -e "$SQL"

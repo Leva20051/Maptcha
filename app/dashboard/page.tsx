@@ -1,11 +1,31 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { RoleAccessShell } from "@/components/role-access-shell";
 import { StatCard } from "@/components/stat-card";
-import { requireSession, getRoleHome } from "@/lib/auth";
+import { getRoleHome, getSession } from "@/lib/auth";
 import { getRegularDashboardData } from "@/lib/data";
 
 export default async function DashboardPage() {
-  const session = await requireSession();
+  const session = await getSession();
+
+  if (!session) {
+    return (
+      <RoleAccessShell
+        eyebrow="Your dashboard"
+        title="Stay on the dashboard page and sign back in."
+        description="Logging out no longer throws this area into a different-looking layout. You stay on the dashboard route and can sign back in from the same full app shell."
+        role="regular"
+        panelTitle="Regular dashboard access"
+        panelDescription="Sign in to restore your personalized feed, badges, follows, and recent activity."
+        previewTitle="What returns after sign-in"
+        previewItems={[
+          "Your personalized venue feed ranked by your saved preferences.",
+          "Recent check-ins, followed curators, and earned badges.",
+          "Profile weighting controls that directly shape venue scoring.",
+        ]}
+      />
+    );
+  }
 
   if (session.role !== "regular") {
     redirect(await getRoleHome(session.role));
