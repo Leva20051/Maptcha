@@ -186,13 +186,7 @@ function extractAttributeRatings(formData: FormData) {
 }
 
 function touchCorePaths() {
-  revalidatePath("/");
-  revalidatePath("/dashboard");
-  revalidatePath("/venues");
-  revalidatePath("/account");
-  revalidatePath("/curators");
-  revalidatePath("/curator-studio");
-  revalidatePath("/admin");
+  revalidatePath("/", "layout");
 }
 
 async function handleLogin(role: AppRole, formData: FormData) {
@@ -305,6 +299,7 @@ export async function registerCuratorAction(formData: FormData) {
 
 export async function logoutAction() {
   await clearSession();
+  touchCorePaths();
   redirect("/");
 }
 
