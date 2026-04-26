@@ -54,9 +54,9 @@ export function SiteHeader({ session }: SiteHeaderProps) {
             </>
           ) : (
             <>
-              <Link href="/dashboard">Regular Login</Link>
-              <Link href="/curator-studio">Curator Login</Link>
-              <Link href="/admin">Admin Login</Link>
+              <Link href="/login/user">Regular Login</Link>
+              <Link href="/login/curator">Curator Login</Link>
+              <Link href="/login/admin">Admin Login</Link>
             </>
           )}
         </nav>
