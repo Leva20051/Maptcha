@@ -38,7 +38,7 @@ export default async function VenueDetailPage({ params }: VenueDetailPageProps) 
   return (
     <div className="page">
       <div className="shell page-stack">
-        <section className="hero stack">
+        <section className="hero venue-view-hero stack">
           <div className="venue-title-row">
             <div className="stack">
               <div className="chip-row">

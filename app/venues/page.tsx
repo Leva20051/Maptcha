@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpDown, Coffee, MapPin, Search, SlidersHorizontal, Sparkles, Star, Wallet } from "lucide-react";
 import VenueMap from "@/components/venue-map";
 import { getSession } from "@/lib/auth";
 import { getPriceRangeOptions, getSessionUserById, getVenueBrowseData } from "@/lib/data";
@@ -32,26 +33,28 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
   });
 
   return (
-    <div className="page">
+    <div className="page venues-view-page">
       <div className="shell page-stack">
-        <section className="hero stack">
-          <span className="eyebrow">Venue Discovery</span>
-          <h1>Filter by what actually matters.</h1>
-          <p>
-            Search venues by name, city, price range, tags, and sorting mode. Regular users also get a
-            personalized ranking based on stored attribute preferences and followed curator signals.
-          </p>
-          <form className="form-grid" method="GET">
-            <div className="field">
-              <label htmlFor="search">Search</label>
+        <section className="venues-hero">
+          <div className="venues-hero-copy">
+            <span className="eyebrow">Cafe Curator</span>
+            <h1>Find cafes that match your mood.</h1>
+            <p>Matcha mornings, deep work, soft dates, better sips.</p>
+          </div>
+          <form className="venue-filter-bar" method="GET">
+            <label className="filter-chip" htmlFor="search">
+              <Search size={18} aria-hidden="true" />
+              <span>Name</span>
               <input id="search" name="search" defaultValue={search} placeholder="Cafe name" />
-            </div>
-            <div className="field">
-              <label htmlFor="city">City</label>
+            </label>
+            <label className="filter-chip" htmlFor="city">
+              <MapPin size={18} aria-hidden="true" />
+              <span>City</span>
               <input id="city" name="city" defaultValue={city} placeholder="Calgary" />
-            </div>
-            <div className="field">
-              <label htmlFor="priceRange">Price range</label>
+            </label>
+            <label className="filter-chip" htmlFor="priceRange">
+              <Wallet size={18} aria-hidden="true" />
+              <span>Price</span>
               <select id="priceRange" name="priceRange" defaultValue={priceRange}>
                 <option value="">Any</option>
                 {getPriceRangeOptions().map((price) => (
@@ -60,72 +63,85 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="field">
-              <label htmlFor="tag">Tag</label>
+            </label>
+            <label className="filter-chip" htmlFor="tag">
+              <Sparkles size={18} aria-hidden="true" />
+              <span>Vibe</span>
               <input id="tag" name="tag" defaultValue={tag} placeholder="Study Friendly" />
-            </div>
-            <div className="field">
-              <label htmlFor="sort">Sort</label>
+            </label>
+            <label className="filter-chip" htmlFor="sort">
+              <ArrowUpDown size={18} aria-hidden="true" />
+              <span>Sort</span>
               <select id="sort" name="sort" defaultValue={sort}>
-                <option value="trend">Trend score</option>
-                <option value="rating">Average rating</option>
-                <option value="recent">Recently added</option>
-                {currentUser?.role === "regular" ? <option value="personalized">Personalized fit</option> : null}
+                <option value="trend">Trending</option>
+                <option value="rating">Rating</option>
+                <option value="recent">New</option>
+                {currentUser?.role === "regular" ? <option value="personalized">For you</option> : null}
               </select>
-            </div>
-            <div className="button-row" style={{ alignItems: "end" }}>
-              <button className="button button-primary" type="submit">
-                Apply filters
-              </button>
-            </div>
+            </label>
+            <button className="button button-primary venue-filter-button" type="submit">
+              <SlidersHorizontal size={18} aria-hidden="true" />
+              Tune
+            </button>
           </form>
         </section>
 
-        <section className="two-column">
-          <div className="glass-card stack">
+        <section className="venues-layout">
+          <div className="venues-map-panel">
             <div className="section-heading">
               <div className="stack">
-                <span className="eyebrow">Live map</span>
-                <h2>Venue positions</h2>
+                <span className="eyebrow">Nearby</span>
+                <h2>Map view</h2>
               </div>
             </div>
             <VenueMap venues={venues} height={520} />
           </div>
 
-          <div className="stack">
+          <div className="venues-list">
             {venues.map((venue) => (
-              <article key={venue.venueId} className="list-card">
+              <article key={venue.venueId} className="venue-card">
                 <header>
-                  <div className="stack">
-                    <div className="chip-row">
-                      <span className="role-pill">{venue.priceRange ?? "Flexible"}</span>
-                      <span className="score-pill">{venue.trendScore}/100 trend</span>
-                      {venue.personalizedScore ? <span className="badge">{venue.personalizedScore}/100 fit</span> : null}
+                  <div>
+                    <div className="venue-card-topline">
+                      <span>
+                        <MapPin size={15} aria-hidden="true" />
+                        {venue.city}
+                      </span>
+                      <span>
+                        <Coffee size={15} aria-hidden="true" />
+                        {venue.priceRange ?? "Flexible"}
+                      </span>
                     </div>
                     <h3>{venue.name}</h3>
                   </div>
-                  <Link href={`/venues/${venue.venueId}`} className="button button-secondary">
-                    Open
-                  </Link>
+                  <div className="venue-rating">
+                    <Star size={17} aria-hidden="true" />
+                    <strong>{venue.averageRating ?? "New"}</strong>
+                  </div>
                 </header>
-                <p>{venue.description}</p>
-                <div className="meta">
-                  <span>{venue.city}</span>
+                <div className="venue-card-metrics">
+                  <span>{venue.trendScore}/100 trend</span>
+                  {venue.personalizedScore ? <span>{venue.personalizedScore}/100 fit</span> : null}
                   <span>{venue.reviewCount} reviews</span>
-                  <span>{venue.averageRating ? `${venue.averageRating}/5 avg` : "No ratings yet"}</span>
-                  <span>{venue.averageRecommendation ? `${venue.averageRecommendation}/10 curator avg` : "No recommendations yet"}</span>
                 </div>
                 <div className="chip-row">
-                  {venue.tagNames.map((tagName) => (
+                  {venue.tagNames.slice(0, 4).map((tagName) => (
                     <span key={tagName} className="chip">
                       {tagName}
                     </span>
                   ))}
                 </div>
+                <Link href={`/venues/${venue.venueId}`} className="venue-card-link">
+                  View cafe
+                </Link>
               </article>
             ))}
-            {!venues.length ? <div className="empty-state">No venues matched the current filter set.</div> : null}
+            {!venues.length ? (
+              <div className="empty-state">
+                <h3>No cafes found</h3>
+                <p>Try a softer filter.</p>
+              </div>
+            ) : null}
           </div>
         </section>
       </div>
