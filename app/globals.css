@@ -1285,6 +1285,10 @@ th {
   align-items: center;
 }
 
+.login-admin-action-row {
+  grid-template-columns: 1fr;
+}
+
 .login-action-row .button-primary {
   min-height: 54px;
   border-radius: 16px;
@@ -1322,6 +1326,45 @@ th {
   border-radius: 16px;
   color: var(--green-deep);
   font-weight: 800;
+}
+
+.admin-login-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.admin-login-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  border: 1px solid rgba(116, 161, 46, 0.24);
+  border-radius: 16px;
+  color: var(--green-deep);
+  font-weight: 800;
+}
+
+.role-login-hero {
+  grid-template-columns: 0.75fr 1.25fr;
+  align-items: center;
+}
+
+.role-login-hero > .eyebrow,
+.role-login-hero > h1,
+.role-login-hero > p {
+  grid-column: 1;
+}
+
+.role-login-hero .login-hero-points {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+}
+
+.role-login-hero p {
+  max-width: 400px;
+  color: var(--muted);
 }
 
 .login-benefit-list {
@@ -1405,8 +1448,17 @@ th {
   }
 
   .regular-login-grid,
-  .login-hero-points {
+  .login-hero-points,
+  .role-login-hero {
     grid-template-columns: 1fr;
+  }
+
+  .role-login-hero > .eyebrow,
+  .role-login-hero > h1,
+  .role-login-hero > p,
+  .role-login-hero .login-hero-points {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .venues-hero-copy h1 {
@@ -1512,6 +1564,10 @@ th {
   }
 
   .login-action-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-login-links {
     grid-template-columns: 1fr;
   }
 
