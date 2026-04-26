@@ -37,7 +37,7 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
       <div className="shell page-stack">
         <section className="venues-hero">
           <div className="venues-hero-copy">
-            <span className="eyebrow">Cafe Curator</span>
+            <span className="venues-brand">Maptcha</span>
             <h1>Find cafes that match your mood.</h1>
             <p>Matcha mornings, deep work, soft dates, better sips.</p>
           </div>

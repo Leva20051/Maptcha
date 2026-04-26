@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Sora:wght@500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Sora:wght@500;600;700;800&display=swap");
 
 :root {
   --bg: #f8fbf5;
@@ -14,8 +14,8 @@
   --green: #74a12e;
   --green-deep: #3f6419;
   --green-soft: rgba(185, 220, 169, 0.28);
-  --coffee: #6b4a31;
-  --coffee-soft: rgba(107, 74, 49, 0.1);
+  --coffee: #6f4e37;
+  --coffee-soft: rgba(111, 78, 55, 0.12);
   --shadow: 0 22px 55px rgba(32, 32, 20, 0.08);
   --radius: 24px;
   --radius-sm: 16px;
@@ -40,8 +40,7 @@ body {
     radial-gradient(circle at top right, rgba(252, 186, 203, 0.2), transparent 28%),
     linear-gradient(180deg, #ffffff 0%, #f4faef 100%);
   font-family:
-    "M PLUS Rounded 1c",
-    "Avenir Next",
+    "Inter",
     "Segoe UI",
     sans-serif;
 }
@@ -167,9 +166,24 @@ button {
   font-weight: 700;
 }
 
+.brand-logo {
+  display: block;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  box-shadow: 0 10px 22px rgba(63, 100, 25, 0.12);
+}
+
 .brand-mark strong {
   display: block;
-  font-size: 0.98rem;
+  color: var(--green);
+  font-family:
+    "DM Serif Display",
+    Georgia,
+    serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .brand-mark small {
@@ -215,18 +229,21 @@ button {
 h1,
 h2,
 h3 {
+  font-family:
+    "Sora",
+    "Inter",
+    sans-serif;
   margin: 0;
   line-height: 1.05;
+  letter-spacing: 0;
 }
 
 h1 {
   font-size: clamp(2.4rem, 6vw, 4.4rem);
-  letter-spacing: -0.05em;
 }
 
 h2 {
   font-size: clamp(1.5rem, 2.4vw, 2.2rem);
-  letter-spacing: -0.03em;
 }
 
 h3 {
@@ -603,6 +620,19 @@ th {
   gap: 14px;
 }
 
+.venues-brand {
+  display: inline-flex;
+  width: max-content;
+  color: var(--green);
+  font-family:
+    "DM Serif Display",
+    Georgia,
+    serif;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 400;
+  line-height: 0.9;
+}
+
 .venues-hero-copy h1 {
   max-width: 720px;
   font-size: 4.1rem;
@@ -611,8 +641,13 @@ th {
 
 .venues-hero-copy p {
   max-width: 520px;
-  color: #52604f;
+  color: var(--green-deep);
+  font-family:
+    "Sora",
+    "Inter",
+    sans-serif;
   font-size: 1.08rem;
+  font-weight: 600;
 }
 
 .venue-filter-bar {
@@ -780,14 +815,16 @@ th {
   justify-self: start;
   padding: 11px 15px;
   border-radius: 999px;
-  background: #1f2b1d;
+  background: var(--coffee);
   color: #ffffff;
   font-weight: 800;
-  transition: transform 150ms ease, background 150ms ease;
+  box-shadow: 0 10px 24px rgba(111, 78, 55, 0.22);
+  transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
 }
 
 .venue-card-link:hover {
-  background: var(--green-deep);
+  background: #5d3f2b;
+  box-shadow: 0 14px 30px rgba(111, 78, 55, 0.3);
   transform: translateY(-1px);
 }
 
