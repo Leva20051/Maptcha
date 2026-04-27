@@ -31,8 +31,8 @@ export default function VenueMapClient({ venues, height = 360 }: VenueMapClientP
             center={[venue.latitude!, venue.longitude!]}
             radius={10}
             pathOptions={{
-              color: "#18392b",
-              fillColor: venue.personalizedScore ? "#d2743a" : "#3d8b66",
+              color: "#ffffff",
+              fillColor: venue.personalizedScore ? "#fc9fb1" : "#74a12e",
               fillOpacity: 0.95,
               weight: 2,
             }}

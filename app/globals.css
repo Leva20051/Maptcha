@@ -36,9 +36,9 @@ body {
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(185, 220, 169, 0.28), transparent 32%),
-    radial-gradient(circle at top right, rgba(252, 186, 203, 0.2), transparent 28%),
-    linear-gradient(180deg, #ffffff 0%, #f4faef 100%);
+    radial-gradient(circle at top left, rgba(185, 220, 169, 0.34), transparent 32%),
+    radial-gradient(circle at top right, rgba(252, 186, 203, 0.18), transparent 30%),
+    linear-gradient(180deg, #f7fbef 0%, #eef7e7 48%, #f8fbf3 100%);
   font-family:
     "Inter",
     "Segoe UI",
@@ -172,6 +172,15 @@ button {
   height: 46px;
   border-radius: 16px;
   box-shadow: 0 10px 22px rgba(63, 100, 25, 0.12);
+}
+
+.brand-wordmark {
+  display: block;
+  width: min(330px, 42vw);
+  height: 70px;
+  object-fit: contain;
+  object-position: left center;
+  border-radius: 14px;
 }
 
 .brand-mark strong {
@@ -554,6 +563,9 @@ th {
 .venues-view-page {
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 14% 10%, rgba(185, 220, 169, 0.42), transparent 28%),
+    linear-gradient(180deg, rgba(116, 161, 46, 0.12), rgba(255, 255, 255, 0));
   font-family:
     "Inter",
     "Segoe UI",
@@ -587,29 +599,21 @@ th {
 .venues-hero {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(360px, 0.95fr);
   gap: 28px;
   padding: 52px;
   overflow: hidden;
   border: 1px solid rgba(116, 161, 46, 0.16);
   border-radius: 34px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 253, 244, 0.9)),
-    radial-gradient(circle at 82% 20%, rgba(252, 186, 203, 0.36), transparent 34%),
-    radial-gradient(circle at 12% 90%, rgba(185, 220, 169, 0.46), transparent 38%);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.92)),
+    radial-gradient(circle at 82% 18%, rgba(185, 220, 169, 0.2), transparent 34%),
+    radial-gradient(circle at 10% 92%, rgba(252, 186, 203, 0.12), transparent 38%);
   box-shadow: 0 24px 70px rgba(63, 100, 25, 0.12);
 }
 
 .venues-hero::after {
-  content: "";
-  position: absolute;
-  right: 36px;
-  top: 34px;
-  width: 118px;
-  height: 118px;
-  border: 1px solid rgba(116, 161, 46, 0.16);
-  border-radius: 40px;
-  background: linear-gradient(135deg, rgba(252, 159, 177, 0.34), rgba(185, 220, 169, 0.28));
-  transform: rotate(10deg);
+  display: none;
 }
 
 .venues-hero-copy {
@@ -639,6 +643,19 @@ th {
   line-height: 0.98;
 }
 
+.venues-hero-copy h1::first-letter {
+  letter-spacing: 0;
+}
+
+.venues-hero-copy h1 {
+  text-wrap: balance;
+}
+
+.venues-hero-copy h1 span,
+.venues-hero-copy h1 strong {
+  color: var(--green);
+}
+
 .venues-hero-copy p {
   max-width: 520px;
   color: var(--green-deep);
@@ -650,9 +667,36 @@ th {
   font-weight: 600;
 }
 
+.venues-hero-art {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-items: center;
+  min-height: 220px;
+  padding: 0;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(238, 247, 225, 0.96), rgba(235, 246, 215, 0.9)),
+    radial-gradient(circle at 76% 26%, rgba(252, 186, 203, 0.16), transparent 30%);
+  overflow: hidden;
+}
+
+.venues-hero-art img {
+  width: 100%;
+  height: 100%;
+  max-height: 270px;
+  border-radius: 22px;
+  object-fit: cover;
+  object-position: center;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 18px 22px rgba(63, 100, 25, 0.12));
+  mask-image: radial-gradient(ellipse at center, #000 62%, rgba(0, 0, 0, 0.72) 78%, transparent 100%);
+}
+
 .venue-filter-bar {
   position: relative;
   z-index: 1;
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(5, minmax(130px, 1fr)) auto;
   gap: 12px;
@@ -706,11 +750,13 @@ th {
   min-height: 56px;
   border-radius: 999px;
   padding: 0 22px;
+  background: linear-gradient(135deg, #fc9fb1, #ef5f8b);
+  box-shadow: 0 16px 28px rgba(239, 95, 139, 0.28);
 }
 
 .venues-layout {
   display: grid;
-  grid-template-columns: minmax(380px, 0.95fr) minmax(420px, 1.05fr);
+  grid-template-columns: minmax(420px, 0.95fr) minmax(440px, 1.05fr);
   gap: 22px;
   align-items: start;
 }
@@ -721,7 +767,8 @@ th {
   padding: 20px;
   border: 1px solid rgba(116, 161, 46, 0.14);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.78);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(248, 253, 244, 0.88));
   box-shadow: 0 20px 58px rgba(63, 100, 25, 0.1);
 }
 
@@ -740,10 +787,12 @@ th {
   gap: 16px;
   padding: 22px;
   overflow: hidden;
-  border: 1px solid rgba(116, 161, 46, 0.14);
+  border: 1px solid rgba(252, 159, 177, 0.2);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 18px 44px rgba(63, 100, 25, 0.08);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 247, 250, 0.9)),
+    radial-gradient(circle at 100% 0%, rgba(252, 186, 203, 0.24), transparent 28%);
+  box-shadow: 0 18px 44px rgba(200, 95, 117, 0.08);
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
@@ -758,7 +807,7 @@ th {
 
 .venue-card:hover {
   border-color: rgba(252, 159, 177, 0.42);
-  box-shadow: 0 24px 62px rgba(63, 100, 25, 0.14);
+  box-shadow: 0 24px 62px rgba(200, 95, 117, 0.14);
   transform: translateY(-3px);
 }
 
@@ -804,9 +853,19 @@ th {
   color: var(--accent-deep);
 }
 
+.venue-rating-inline {
+  color: var(--accent-deep) !important;
+}
+
 .venue-card .chip {
   background: rgba(185, 220, 169, 0.28);
   color: var(--green-deep);
+}
+
+.venue-card-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .venue-card-link {
@@ -815,17 +874,28 @@ th {
   justify-self: start;
   padding: 11px 15px;
   border-radius: 999px;
-  background: var(--coffee);
+  background: linear-gradient(135deg, #fc9fb1, #ef5f8b);
   color: #ffffff;
   font-weight: 800;
-  box-shadow: 0 10px 24px rgba(111, 78, 55, 0.22);
+  box-shadow: 0 10px 24px rgba(239, 95, 139, 0.24);
   transition: transform 150ms ease, background 150ms ease, box-shadow 150ms ease;
 }
 
 .venue-card-link:hover {
-  background: #5d3f2b;
-  box-shadow: 0 14px 30px rgba(111, 78, 55, 0.3);
+  box-shadow: 0 14px 30px rgba(239, 95, 139, 0.32);
   transform: translateY(-1px);
+}
+
+.venue-save-button {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(116, 161, 46, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--green);
+  vertical-align: middle;
 }
 
 .curators-view-page {

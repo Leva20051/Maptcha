@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpDown, Coffee, MapPin, Search, SlidersHorizontal, Sparkles, Star, Wallet } from "lucide-react";
+import { ArrowUpDown, Bookmark, Coffee, MapPin, Search, SlidersHorizontal, Sparkles, Star, Wallet } from "lucide-react";
 import VenueMap from "@/components/venue-map";
 import { getSession } from "@/lib/auth";
 import { getPriceRangeOptions, getSessionUserById, getVenueBrowseData } from "@/lib/data";
@@ -37,9 +37,14 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
       <div className="shell page-stack">
         <section className="venues-hero">
           <div className="venues-hero-copy">
-            <span className="venues-brand">Maptcha</span>
-            <h1>Find cafes that match your mood.</h1>
+            <span className="eyebrow">Maptcha</span>
+            <h1>
+              Find cafes that match <span>your vibe.</span>
+            </h1>
             <p>Matcha mornings, deep work, soft dates, better sips.</p>
+          </div>
+          <div className="venues-hero-art" aria-hidden="true">
+            <img src="/viewpage-image.png" alt="" />
           </div>
           <form className="venue-filter-bar" method="GET">
             <label className="filter-chip" htmlFor="search">
@@ -120,6 +125,10 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
                   </div>
                 </header>
                 <div className="venue-card-metrics">
+                  <span className="venue-rating-inline">
+                    <Star size={15} aria-hidden="true" />
+                    {venue.averageRating ?? "New"}
+                  </span>
                   <span>{venue.trendScore}/100 trend</span>
                   {venue.personalizedScore ? <span>{venue.personalizedScore}/100 fit</span> : null}
                   <span>{venue.reviewCount} reviews</span>
@@ -131,9 +140,14 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
                     </span>
                   ))}
                 </div>
-                <Link href={`/venues/${venue.venueId}`} className="venue-card-link">
-                  View cafe
-                </Link>
+                <div className="venue-card-actions">
+                  <Link href={`/venues/${venue.venueId}`} className="venue-card-link">
+                    View cafe
+                  </Link>
+                  <button className="venue-save-button" type="button" aria-label={`Save ${venue.name}`}>
+                    <Bookmark size={20} aria-hidden="true" />
+                  </button>
+                </div>
               </article>
             ))}
             {!venues.length ? (

@@ -12,11 +12,7 @@ export function SiteHeader({ session }: SiteHeaderProps) {
     <header className="site-header">
       <div className="shell site-header-inner">
         <Link href="/" className="brand-mark">
-          <img className="brand-logo" src="/maptcha-logo.svg" alt="Maptcha logo" />
-          <span>
-            <strong>Maptcha</strong>
-            <small>Curated cafe discovery for Calgary</small>
-          </span>
+          <img className="brand-wordmark" src="/maptcha-login-image.png" alt="Maptcha - find cafes around you" />
         </Link>
 
         <nav className="top-nav">
